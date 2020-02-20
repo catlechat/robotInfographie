@@ -239,9 +239,12 @@ void keyboard(unsigned char key,       // Touche qui a ete pressee
 		switch (key){
 
 			case '-':   /* affichage du carre plein*/
-				r = r + 0.5;
-				break;
-
+				if(r>0){
+					r = r + 0.5;
+					break;
+				}else{
+					r=0
+				}
 			case '+':   /* affichage en mode fil de fer*/
 				r = r - 0.5;
 				break;
