@@ -239,15 +239,20 @@ void keyboard(unsigned char key,       // Touche qui a ete pressee
 		switch (key){
 
 			case '-':   /* affichage du carre plein*/
-				if(r>0){
+				if(r<10){
 					r = r + 0.5;
 					break;
 				}else{
-					r=0
+					r=10;
+					break;
 				}
 			case '+':   /* affichage en mode fil de fer*/
+			if(r>0){
 				r = r - 0.5;
 				break;
+			}else{
+				r=0;
+			}
 
 			case 'q':   /* affichage en mode sommets seuls*/
 				alpha = alpha + 0.1;
