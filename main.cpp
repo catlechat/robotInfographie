@@ -27,13 +27,10 @@ float epaule = -5.0;
 float cameraAngle = 10.0;
 bool go = true;
 
+float alpha = 0; // = de 0 a 2 PI
+float phi = 0; // de -PI/2 a PI/2
 float r = 5.0; // = C'esr le R c'est la distance
 // r +- pas, pas >0 et r>0 !   Zoom avec -pas dezoom avec +pas
-float alpha = 90; // = de 0 a 2 PI
-float phi = 90; // de -PI/2 a PI/2
-float x0 = r * cos(phi) * sin(alpha); // = R x cos(phi) x Sin(alpha)
-float y0 = r * sin(phi); // = R x Sin(phi)
-float z0 = r * cos(phi) * cos(alpha); // = R x cos(phi) cos(alpha)
 
 /* prototypes de fonctions */
 void initRendering();                           // Initialisation du rendu
@@ -95,7 +92,6 @@ void initRendering() {
 
 /* Cr�ation de la sc�ne */
 void display(){
-
 	/* Efface les tampons de couleur et de profondeur de l'image avec la couleur de fond.
 	rq: buffer: m�moire tampon, c'est donc une surface en memoire utilis�e pour stocker une image*/
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
@@ -110,7 +106,9 @@ void display(){
 	/* Permet de cr�er un point de vue. D�finit une matrice de mod�lisation-visualisation et la multiplie
 	� droite de lma matrice active, ici l'identit�*/
 	//glRotatef(cameraAngle,0.0,0.0,1.0); v1 camera animation
-	gluLookAt(x0, y0, z0,      // position cam�ra
+	gluLookAt((r * cos(phi) * sin(alpha)),
+						(r * sin(phi)),
+					  (r * cos(phi) * cos(alpha)),      // position cam�ra
 		      	0.0, 0.0, 0.0,      // visée
 			  		0.0, 1.0, 0.0);     // vecteur d'orientation cam�ra
   //glRotatef(-cameraAngle,0.1,-0.1,1.0); V1 animation
@@ -240,19 +238,27 @@ void keyboard(unsigned char key,       // Touche qui a ete pressee
 
 		switch (key){
 
-			case '+':   /* affichage du carre plein*/
+			case '-':   /* affichage du carre plein*/
 				r = r + 0.5;
 				break;
 
-			case '-':   /* affichage en mode fil de fer*/
+			case '+':   /* affichage en mode fil de fer*/
 				r = r - 0.5;
 				break;
 
-			case 's':   /* affichage en mode sommets seuls*/
-
+			case 'q':   /* affichage en mode sommets seuls*/
+				alpha = alpha + 0.1;
 				break;
-
-			case 'q':   /* Quitter le programme */
+			case 's':   /* affichage en mode sommets seuls*/
+				phi = phi + 0.1;
+				break;
+			case 'd':   /* affichage en mode sommets seuls*/
+				alpha = alpha - 0.1;
+			break;
+			case 'z':   /* affichage en mode sommets seuls*/
+				phi = phi - 0.1;
+				break;
+			case 'x':   /* Quitter le programme */
 				exit(0);
 		}
 }
