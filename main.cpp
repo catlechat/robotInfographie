@@ -180,6 +180,13 @@ void display(){
 				glTranslatef(0.0,-15.0,15.0);
 				glutSolidTorus(2,4,18,18);
 			glPopMatrix();
+			glPushMatrix();
+				//teeth
+				glColor3f(1.0,1.0,1.0);
+				glTranslatef(0.0,-0.3,0.6);
+				glScalef(0.08,0.08,0.08);
+				glutSolidSphere(1.0,18.0,18.0);
+			glPopMatrix();
 		glPopMatrix();
 
 
@@ -254,19 +261,19 @@ void keyboard(unsigned char key,       // Touche qui a ete pressee
 					break;
 				}
 			case 'q':
-				if(alpha<=2*M_PI){
+				if(alpha<=2*M_PI-0.1){
 					alpha = alpha + 0.1;
 					break;
 				}else{
-					alpha=0;
+					alpha=0+0.1;
 					break;
 				}
 				case 'd':
-					if(alpha>0){
+					if(alpha>0+0.1){
 						alpha = alpha - 0.1;
 						break;
 					}else{
-						alpha=2*M_PI;
+						alpha=2*M_PI-0.1;
 						break;
 					}
 			case 's':
