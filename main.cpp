@@ -150,14 +150,13 @@ void display(){
 				glScalef(0.04,0.04,0.04);
 				glutSolidSphere(1.0,18.0,18.0);
 			glPopMatrix();
-			glPushMatrix();
-				//nose
-				glScalef(0.1,0.2,0.1);
-				glColor3f(0.9,0.2,0.4);
-				glTranslatef(0.0,0.5,8.0);
-				glRotatef(90,0.0,0.0,1.0);
-				glutSolidTetrahedron();
-			glPopMatrix();
+				glPushMatrix();
+					//nose
+					glColor3f(0.7,0.0,0.0);
+					glTranslatef(0.0,0.0,0.6);
+					glScalef(0.08,0.14,0.08);
+					glutSolidSphere(1.0,18.0,18.0);
+				glPopMatrix();
 			glPushMatrix();
 				//ears
 				glScalef(0.2,0.2,0.2);
@@ -238,7 +237,7 @@ void keyboard(unsigned char key,       // Touche qui a ete pressee
 
 		switch (key){
 
-			case '-':   /* affichage du carre plein*/
+			case '-':
 				if(r<10){
 					r = r + 0.5;
 					break;
@@ -246,26 +245,46 @@ void keyboard(unsigned char key,       // Touche qui a ete pressee
 					r=10;
 					break;
 				}
-			case '+':   /* affichage en mode fil de fer*/
-			if(r>0){
-				r = r - 0.5;
-				break;
-			}else{
-				r=0;
-			}
-
-			case 'q':   /* affichage en mode sommets seuls*/
-				alpha = alpha + 0.1;
-				break;
-			case 's':   /* affichage en mode sommets seuls*/
-				phi = phi + 0.1;
-				break;
-			case 'd':   /* affichage en mode sommets seuls*/
-				alpha = alpha - 0.1;
-			break;
-			case 'z':   /* affichage en mode sommets seuls*/
-				phi = phi - 0.1;
-				break;
+			case '+':
+				if(r>2){
+					r = r - 0.5;
+					break;
+				}else{
+					r=2;
+					break;
+				}
+			case 'q':
+				if(alpha<=2*M_PI){
+					alpha = alpha + 0.1;
+					break;
+				}else{
+					alpha=0;
+					break;
+				}
+				case 'd':
+					if(alpha>0){
+						alpha = alpha - 0.1;
+						break;
+					}else{
+						alpha=2*M_PI;
+						break;
+					}
+			case 's':
+				if(phi<=M_PI/2-0.1){
+					phi = phi + 0.1;
+					break;
+				}else{
+					phi=M_PI/2-0.1;
+					break;
+				}
+			case 'z':
+				if(phi>=-M_PI/2+0.1){
+					phi = phi - 0.1;
+					break;
+				}else{
+					phi=M_PI/-2+0.1;
+					break;
+				}
 			case 'x':   /* Quitter le programme */
 				exit(0);
 		}
